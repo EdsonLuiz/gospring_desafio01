@@ -40,8 +40,8 @@ public class Project {
         return tasks;
     }
 
-    public void setTasks(List<String> tasks) {
-        this.tasks = tasks;
+    public void setTasks(String tasks) {
+        this.tasks.add(tasks);
     }
 
 }
