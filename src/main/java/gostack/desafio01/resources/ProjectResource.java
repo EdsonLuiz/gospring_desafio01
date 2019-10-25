@@ -2,6 +2,9 @@ package gostack.desafio01.resources;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+
+import com.fasterxml.jackson.databind.node.TextNode;
 
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -44,6 +47,15 @@ public class ProjectResource {
     @DeleteMapping("/{id}")
     public void delete(@PathVariable Integer id) {
         tempProjectStore.removeIf(p -> p.getId() == id);
+    }
+
+    @PostMapping("/{id}/tasks")
+    public Project storeTask(@RequestBody Map<String, String> body, @PathVariable Integer id) {
+        Project projectFound = tempProjectStore.stream().filter(p -> p.getId() == id).findFirst().orElse(null);
+        // how to get key, value from body whitout object mapping
+        // https://medium.com/better-programming/building-a-spring-boot-rest-api-part-ii-7ff1e4384b0b
+        projectFound.setTasks(body.get("title"));
+        return projectFound;
     }
 
 }
