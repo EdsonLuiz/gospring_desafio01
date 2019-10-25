@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -15,15 +17,18 @@ import gostack.desafio01.domain.Project;
 @RestController
 @RequestMapping("/projects")
 public class ProjectResource {
+    private List<Project> tempProjectStore = new ArrayList<>();
 
     @GetMapping()
     public List<Project> show() {
-        Project p1 = new Project(1, "Projeto01");
-        Project p2 = new Project(1, "Projeto02");
-        List<Project> projects = new ArrayList<>();
-        projects.add(p1);
-        projects.add(p2);
-        return projects;
+
+        return tempProjectStore;
+    }
+
+    @PostMapping()
+    public Project store(@RequestBody Project project) {
+        tempProjectStore.add(project);
+        return project;
     }
 
 }
