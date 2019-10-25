@@ -3,6 +3,7 @@ package gostack.desafio01.resources;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -38,6 +39,11 @@ public class ProjectResource {
         Project projectFound = tempProjectStore.stream().filter(p -> p.getId() == id).findFirst().orElse(null);
         projectFound.setTitle(project.getTitle());
         return project;
+    }
+
+    @DeleteMapping("/{id}")
+    public void delete(@PathVariable Integer id) {
+        tempProjectStore.removeIf(p -> p.getId() == id);
     }
 
 }
